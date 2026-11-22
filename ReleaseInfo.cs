@@ -1,0 +1,1 @@
+static class ReleaseInfo { public const string Version="1.0.0.7",Hash="BC9FCFBCE10AF6CEC428C1C035DF1D396F5F634795019EF7C54A4406CF55BF44"; }
