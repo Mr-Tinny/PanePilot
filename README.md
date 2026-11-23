@@ -1,6 +1,6 @@
 # PanePilot
 
-**[Download PanePilot Portable 1.0.0.20 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.20/PanePilot-1.0.0.20-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
+**[Download PanePilot Portable 1.0.0.21 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.21/PanePilot-1.0.0.21-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
 
 Watch multiple streams side by side. Each pane has its own address, volume, mute, and retry controls.
 
@@ -14,7 +14,13 @@ The `PanePilotSetup.exe` and `PanePilot.exe` files listed in the repository root
 
 ## Update a portable copy
 
-PanePilot checks for new portable releases at startup. You can also choose **Help → Check for updates**. When an update appears, select it to open the release page. Download the portable ZIP, close PanePilot, and replace the files in your existing portable folder with the extracted contents. Keeping `PanePilot.exe` at the same path preserves your shortcut.
+1. Download the portable ZIP from the latest release. Version 1.0.0.20 and later can also open the release page from an update notice.
+2. If you want your open panes back, make sure **Settings → Reopen previous panes at startup** is enabled before closing PanePilot.
+3. Open the folder for the copy you normally use.
+   - **1.0.0.21 or later:** Choose **Help → Prepare this copy for update**, then **Open folder and close**. If Explorer cannot open the folder, paste the selected path into File Explorer's address bar after copying it, then choose **Close PanePilot**.
+   - **Earlier portable versions:** Right-click your usual PanePilot desktop shortcut, choose **Open file location**, and close PanePilot.
+4. Open the ZIP and its inner `PanePilot` folder. Copy the files inside it into the app folder you opened and select **Replace the files in the destination**. Copying the entire folder creates a nested copy and leaves the shortcut on the old version.
+5. Launch your usual shortcut. The title bar shows the running version.
 
 ## Watch in Theater mode
 
