@@ -1,6 +1,6 @@
 # PanePilot
 
-**[Download PanePilot Portable 1.0.0.24 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.24/PanePilot-1.0.0.24-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
+**[Download PanePilot Portable 1.0.0.25 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.25/PanePilot-1.0.0.25-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
 
 Watch multiple streams side by side. Each pane has its own address, volume, mute, and retry controls.
 
@@ -26,10 +26,14 @@ The `PanePilotSetup.exe` and `PanePilot.exe` files listed in the repository root
 
 Use the slider in each pane to set its audio and video volume. PanePilot keeps that level when a player reloads or tries to change it. Opening the same web address again restores the last level you chose, even if you closed the pane before quitting. New addresses use your default volume, and saved layouts restore their own levels.
 
+## Share window audio in Discord
+
+If you can hear PanePilot but viewers hear silence, enable **Settings → Discord window-share audio**. Close every PanePilot window, reopen one copy, and start a new share of the **PanePilot** application window with sound enabled in Discord. The pane volume sliders, mute, and Audio follows Focus control the shared mix. You can use this setting with hardware acceleration on or off. To return to normal audio routing, clear the setting and restart PanePilot.
+
 ## Troubleshoot black video when screen sharing
 
 Under **Settings**, clear **Use hardware acceleration**, close every PanePilot window, and reopen the app. Share the PanePilot window again and compare the same video. To restore the default, check the setting and restart PanePilot again.
 
-## Watch in Theater mode
+## Watch in fullscreen
 
-Choose **View → Theater mode** or press **F11** to hide the pane controls. Right-click a pane to **Retry stream** or **Mute pane**. Press **Esc** to restore the controls.
+Choose **View → Fullscreen (theater mode)** or press **F11**. Move the pointer to the top edge of the monitor to reveal the app menu, toolbar, and active pane controls. They fade away after the pointer leaves. Press **Esc** or **F11** to return to your previous window and layout.
