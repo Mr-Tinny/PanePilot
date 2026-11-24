@@ -1,6 +1,6 @@
 # PanePilot
 
-**[Download PanePilot Portable 1.0.0.26 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.26/PanePilot-1.0.0.26-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
+**[Download PanePilot Portable 1.0.0.27 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.27/PanePilot-1.0.0.27-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
 
 Watch multiple streams side by side. Each pane has its own address, volume, mute, and retry controls.
 
@@ -36,4 +36,4 @@ Under **Settings**, clear **Use hardware acceleration**, close every PanePilot w
 
 ## Watch in fullscreen
 
-Choose **View → Fullscreen (theater mode)** or press **F11**. Move the pointer into the top band to reveal the controls. They stay open while you drag the volume slider or use a menu. Open **Focus pane** to choose the main stream. Hover near the vertical split and drag to resize the columns. With three streams, the two smaller videos meet in the middle of the right column. Press **Esc** or **F11** to return to your previous window and layout.
+Choose **View → Fullscreen (theater mode)** or press **F11**. Move the pointer into the top band to reveal the controls. They stay open while you drag the volume slider or use a menu. Choose **Focus pane** or press **Alt+1**, **Alt+2**, or **Alt+3** on the number row to feature a stream. The same shortcuts work in windowed mode. See the assignments under **View** → **Focus pane**. Each stream keeps its number when you switch Focus or reopen the layout. A new pane takes the lowest free number. Hover near the vertical split and drag to resize the columns. With three streams, the two smaller videos meet in the middle of the right column. Press **Esc** or **F11** to return to your previous window and layout.
