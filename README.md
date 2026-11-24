@@ -1,6 +1,6 @@
 # PanePilot
 
-**[Download PanePilot Portable 1.0.0.25 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.25/PanePilot-1.0.0.25-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
+**[Download PanePilot Portable 1.0.0.26 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.26/PanePilot-1.0.0.26-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
 
 Watch multiple streams side by side. Each pane has its own address, volume, mute, and retry controls.
 
@@ -24,7 +24,7 @@ The `PanePilotSetup.exe` and `PanePilot.exe` files listed in the repository root
 
 ## Pane volume
 
-Use the slider in each pane to set its audio and video volume. PanePilot keeps that level when a player reloads or tries to change it. Opening the same web address again restores the last level you chose, even if you closed the pane before quitting. New addresses use your default volume, and saved layouts restore their own levels.
+Set the level with the pane slider or a supported player volume control. The two controls share the same level. PanePilot keeps that level when a player reloads or tries to change it. Opening the same web address again restores the last level you chose, even if you closed the pane before quitting. New addresses use your default volume, and saved layouts restore their own levels. Switching Focus trades the main and selected pane levels. Other panes keep their levels.
 
 ## Share window audio in Discord
 
@@ -36,4 +36,4 @@ Under **Settings**, clear **Use hardware acceleration**, close every PanePilot w
 
 ## Watch in fullscreen
 
-Choose **View → Fullscreen (theater mode)** or press **F11**. Move the pointer to the top edge of the monitor to reveal the app menu, toolbar, and active pane controls. They fade away after the pointer leaves. Press **Esc** or **F11** to return to your previous window and layout.
+Choose **View → Fullscreen (theater mode)** or press **F11**. Move the pointer into the top band to reveal the controls. They stay open while you drag the volume slider or use a menu. Open **Focus pane** to choose the main stream. Hover near the vertical split and drag to resize the columns. With three streams, the two smaller videos meet in the middle of the right column. Press **Esc** or **F11** to return to your previous window and layout.
