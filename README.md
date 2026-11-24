@@ -1,6 +1,6 @@
 # PanePilot
 
-**[Download PanePilot Portable 1.0.0.23 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.23/PanePilot-1.0.0.23-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
+**[Download PanePilot Portable 1.0.0.24 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.24/PanePilot-1.0.0.24-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
 
 Watch multiple streams side by side. Each pane has its own address, volume, mute, and retry controls.
 
@@ -21,6 +21,10 @@ The `PanePilotSetup.exe` and `PanePilot.exe` files listed in the repository root
    - **Earlier portable versions:** Right-click your usual PanePilot desktop shortcut, choose **Open file location**, and close PanePilot.
 4. Open the ZIP and its inner `PanePilot` folder. Copy the files inside it into the app folder you opened and select **Replace the files in the destination**. Copying the entire folder creates a nested copy and leaves the shortcut on the old version.
 5. Launch your usual shortcut. The title bar shows the running version.
+
+## Pane volume
+
+Use the slider in each pane to set its audio and video volume. PanePilot keeps that level when a player reloads or tries to change it. Opening the same web address again restores the last level you chose, even if you closed the pane before quitting. New addresses use your default volume, and saved layouts restore their own levels.
 
 ## Troubleshoot black video when screen sharing
 
