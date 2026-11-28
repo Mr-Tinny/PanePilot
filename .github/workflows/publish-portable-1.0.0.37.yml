@@ -23,16 +23,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          gh api -H 'Accept: application/vnd.github.raw+json' "repos/$GH_REPO/contents/$ARCHIVE?ref=$SOURCE_COMMIT" > "$ARCHIVE"
+          gh api "repos/$GH_REPO/git/blobs/786c9300d0d3f2575514fa39aa9fb6eb3b667afa" --jq .content | base64 --decode > "$ARCHIVE"
           printf '%s  %s\n' "$SHA256" "$ARCHIVE" | sha256sum --check
-          gh api -H 'Accept: application/vnd.github.raw+json' "repos/$GH_REPO/contents/release-notes-1.0.0.37.md?ref=$SOURCE_COMMIT" > notes.md
+          gh api "repos/$GH_REPO/contents/release-notes-1.0.0.37.md?ref=$SOURCE_COMMIT" --jq .content | base64 --decode > notes.md
           if ! gh release view "$TAG" --json id > /dev/null 2>&1; then
             gh release create "$TAG" --target "$SOURCE_COMMIT" --draft --title 'PanePilot Portable 1.0.0.37' --notes-file notes.md
           fi
           if ! gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$ARCHIVE"; then
             gh release upload "$TAG" "$ARCHIVE"
           fi
-          digest=$(gh release view "$TAG" --json assets --jq '.assets[] | select(.name == "PanePilot-1.0.0.37-Portable.zip") | .digest')
+          release_id=$(gh release view "$TAG" --json databaseId --jq .databaseId)
+          digest=$(gh api "repos/$GH_REPO/releases/$release_id/assets" --jq '.[] | select(.name == "PanePilot-1.0.0.37-Portable.zip") | .digest')
           test "$digest" = "sha256:$SHA256"
           if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = 'true' ]; then
             gh release edit "$TAG" --draft=false --latest
