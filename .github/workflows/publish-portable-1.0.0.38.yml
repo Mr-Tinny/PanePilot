@@ -1,0 +1,47 @@
+name: Publish PanePilot Portable 1.0.0.38
+on:
+  push:
+    branches: ['publish/portable-1.0.0.38']
+    paths: ['.github/workflows/publish-portable-1.0.0.38.yml']
+permissions:
+  contents: write
+concurrency:
+  group: publish-portable-1.0.0.38
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: Mr-Tinny/PanePilot
+      SOURCE_COMMIT: a4457b240fd4343012961a1e259c8acaf5c6bdd2
+      TAG: portable-v1.0.0.38
+      ARCHIVE: PanePilot-1.0.0.38-Portable.zip
+      SHA256: d4ba21a317f9a0d8b92a9814232f6b87847fcd621022c546f90460c3d77f0bd7
+    steps:
+      - name: Verify the Windows build and publish the release
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/$GH_REPO/git/blobs/3346b7f97f6815f1bf8bddce508d349d170cb1e1" --jq .content | base64 --decode > "$ARCHIVE"
+          printf '%s  %s\n' "$SHA256" "$ARCHIVE" | sha256sum --check
+          gh api "repos/$GH_REPO/contents/release-notes-1.0.0.38.md?ref=$SOURCE_COMMIT" --jq .content | base64 --decode > notes.md
+          if ! gh release view "$TAG" --json id > /dev/null 2>&1; then
+            gh release create "$TAG" --target "$SOURCE_COMMIT" --draft --title 'PanePilot Portable 1.0.0.38' --notes-file notes.md
+          fi
+          if ! gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$ARCHIVE"; then
+            gh release upload "$TAG" "$ARCHIVE"
+          fi
+          release_id=$(gh release view "$TAG" --json databaseId --jq .databaseId)
+          digest=$(gh api "repos/$GH_REPO/releases/$release_id/assets" --jq '.[] | select(.name == "PanePilot-1.0.0.38-Portable.zip") | .digest')
+          test "$digest" = "sha256:$SHA256"
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = 'true' ]; then
+            gh release edit "$TAG" --draft=false --latest
+          fi
+      - name: Download the public ZIP without signing in
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --retry 3 --retry-all-errors --max-time 60 "https://github.com/$GH_REPO/releases/download/$TAG/$ARCHIVE" -o public.zip
+          printf '%s  %s\n' "$SHA256" public.zip | sha256sum --check
+          unzip -tq public.zip
