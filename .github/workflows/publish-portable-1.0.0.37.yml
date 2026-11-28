@@ -1,0 +1,39 @@
+name: Publish PanePilot Portable 1.0.0.37
+on:
+  push:
+    branches: ['publish/portable-1.0.0.37']
+    paths: ['.github/workflows/publish-portable-1.0.0.37.yml']
+permissions:
+  contents: write
+concurrency:
+  group: publish-portable-1.0.0.37
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: Mr-Tinny/PanePilot
+      SOURCE_COMMIT: 551d2a090d8c66103d0fbd137321b6f547bb427d
+      TAG: portable-v1.0.0.37
+      ARCHIVE: PanePilot-1.0.0.37-Portable.zip
+      SHA256: bea684b0a14492d3de55d50fc0fae836ed663515da3c4aa9d26a45e9cdfefd7e
+    steps:
+      - name: Verify the Windows build and publish the release
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api -H 'Accept: application/vnd.github.raw+json' "repos/$GH_REPO/contents/$ARCHIVE?ref=$SOURCE_COMMIT" > "$ARCHIVE"
+          printf '%s  %s\n' "$SHA256" "$ARCHIVE" | sha256sum --check
+          gh api -H 'Accept: application/vnd.github.raw+json' "repos/$GH_REPO/contents/release-notes-1.0.0.37.md?ref=$SOURCE_COMMIT" > notes.md
+          if ! gh release view "$TAG" --json id > /dev/null 2>&1; then
+            gh release create "$TAG" --target "$SOURCE_COMMIT" --draft --title 'PanePilot Portable 1.0.0.37' --notes-file notes.md
+          fi
+          if ! gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$ARCHIVE"; then
+            gh release upload "$TAG" "$ARCHIVE"
+          fi
+          digest=$(gh release view "$TAG" --json assets --jq '.assets[] | select(.name == "PanePilot-1.0.0.37-Portable.zip") | .digest')
+          test "$digest" = "sha256:$SHA256"
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = 'true' ]; then
+            gh release edit "$TAG" --draft=false --latest
+          fi
