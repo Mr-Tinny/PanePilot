@@ -1,40 +1,29 @@
-name: Publish PanePilot Portable 1.0.0.37
+name: Verify public PanePilot Portable 1.0.0.37
 on:
   push:
     branches: ['publish/portable-1.0.0.37']
     paths: ['.github/workflows/publish-portable-1.0.0.37.yml']
-permissions:
-  contents: write
-concurrency:
-  group: publish-portable-1.0.0.37
+permissions: {}
 jobs:
-  publish:
+  download:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-    env:
-      GH_TOKEN: ${{ github.token }}
-      GH_REPO: Mr-Tinny/PanePilot
-      SOURCE_COMMIT: 551d2a090d8c66103d0fbd137321b6f547bb427d
-      TAG: portable-v1.0.0.37
-      ARCHIVE: PanePilot-1.0.0.37-Portable.zip
-      SHA256: bea684b0a14492d3de55d50fc0fae836ed663515da3c4aa9d26a45e9cdfefd7e
+    timeout-minutes: 8
     steps:
-      - name: Verify the Windows build and publish the release
+      - name: Download the public ZIP and check the updater feed without signing in
         shell: bash
         run: |
           set -euo pipefail
-          gh api "repos/$GH_REPO/git/blobs/786c9300d0d3f2575514fa39aa9fb6eb3b667afa" --jq .content | base64 --decode > "$ARCHIVE"
-          printf '%s  %s\n' "$SHA256" "$ARCHIVE" | sha256sum --check
-          gh api "repos/$GH_REPO/contents/release-notes-1.0.0.37.md?ref=$SOURCE_COMMIT" --jq .content | base64 --decode > notes.md
-          if ! gh release view "$TAG" --json id > /dev/null 2>&1; then
-            gh release create "$TAG" --target "$SOURCE_COMMIT" --draft --title 'PanePilot Portable 1.0.0.37' --notes-file notes.md
-          fi
-          if ! gh release view "$TAG" --json assets --jq '.assets[].name' | grep -Fxq "$ARCHIVE"; then
-            gh release upload "$TAG" "$ARCHIVE"
-          fi
-          release_id=$(gh release view "$TAG" --json databaseId --jq .databaseId)
-          digest=$(gh api "repos/$GH_REPO/releases/$release_id/assets" --jq '.[] | select(.name == "PanePilot-1.0.0.37-Portable.zip") | .digest')
-          test "$digest" = "sha256:$SHA256"
-          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = 'true' ]; then
-            gh release edit "$TAG" --draft=false --latest
-          fi
+          curl --fail --silent --show-error --location --retry 3 --max-time 60 \
+            https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.37/PanePilot-1.0.0.37-Portable.zip -o PanePilot.zip
+          echo 'bea684b0a14492d3de55d50fc0fae836ed663515da3c4aa9d26a45e9cdfefd7e  PanePilot.zip' | sha256sum --check
+          unzip -tq PanePilot.zip
+          for attempt in {1..24}; do
+            if curl --fail --silent --show-error --max-time 8 -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/Mr-Tinny/PanePilot/main/portable-version.txt -o feed.txt; then
+              if [ "$(tr -d '\r\n' <feed.txt)" = '1.0.0.37' ]; then
+                echo 'Public update feed verified: 1.0.0.37'
+                exit 0
+              fi
+            fi
+            sleep 12
+          done
+          exit 1
