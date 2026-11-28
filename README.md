@@ -1,6 +1,6 @@
 # PanePilot
 
-**[Download PanePilot Portable 1.0.0.37 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.37/PanePilot-1.0.0.37-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
+**[Download PanePilot Portable 1.0.0.38 for Windows (ZIP)](https://github.com/Mr-Tinny/PanePilot/releases/download/portable-v1.0.0.38/PanePilot-1.0.0.38-Portable.zip)** · [Latest release](https://github.com/Mr-Tinny/PanePilot/releases/latest)
 
 Watch multiple streams side by side. Each pane has its own address, volume, mute, and retry controls.
 
